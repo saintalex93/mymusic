@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveFile(MultipartFile file) {
+    public void saveFile(Music file) {
         musicRepository.save(file);
     }
 

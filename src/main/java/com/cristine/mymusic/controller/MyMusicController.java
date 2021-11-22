@@ -4,7 +4,9 @@ import com.cristine.mymusic.model.Music;
 import com.cristine.mymusic.model.User;
 import com.cristine.mymusic.services.MusicService;
 import com.cristine.mymusic.services.UserService;
+import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,9 +34,9 @@ public class MyMusicController {
         return userService.save(user);
     }
 
-    @PostMapping(path = "/music")
-    public void saveMusic(@RequestBody MultipartFile file) {
-        userService.saveFile(file);
+    @PostMapping(path = "/music", consumes = "multipart/form-data")
+    public void saveMusic(@ModelAttribute Music music) {
+        userService.saveFile(music);
     }
 
     @PutMapping

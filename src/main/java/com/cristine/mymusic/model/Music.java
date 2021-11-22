@@ -3,6 +3,7 @@ package com.cristine.mymusic.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,12 +23,12 @@ public class Music implements Serializable {
     private String author;
     private Date date;
     private String fileName;
-    private byte[] file;
+    private File file;
 
     public Music() {
     }
 
-    public Music(Integer id, String name, String author, Date date, String fileName, byte[] file) {
+    public Music(Integer id, String name, String author, Date date, String fileName, File file) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -56,7 +57,7 @@ public class Music implements Serializable {
         return fileName;
     }
 
-    public byte[] getFile() {
+    public File getFile() {
         return file;
     }
 }
