@@ -6,15 +6,16 @@ import com.cristine.mymusic.repository.MusicRepository;
 import com.cristine.mymusic.repository.UserRepository;
 import com.cristine.mymusic.services.UserService;
 import com.google.common.collect.ImmutableList;
-import org.hibernate.annotations.Immutable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
         if (savedUser == null) {
             save(user);
         }
-        savedUser.setMail(user.getMail());
+        savedUser.setEmail(user.getEmail());
         savedUser.setPassword(user.getPassword());
         return save(savedUser);
     }
@@ -52,4 +53,15 @@ public class UserServiceImpl implements UserService {
         return ImmutableList.copyOf(userRepository.findAllByUsername(username));
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final User user = userRepository.findByUsername(username);
+
+        return org.springframework.security.core.userdetails.User
+                .builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .roles("USER")
+                .build();
+    }
 }

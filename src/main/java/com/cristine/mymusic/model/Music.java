@@ -1,14 +1,13 @@
 package com.cristine.mymusic.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "uk_music_name", columnNames = { "name" }) })
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_music_name", columnNames = {"name"})})
 public class Music implements Serializable {
 
     private static final long serialVersionUID = 23432432432424341L;
@@ -21,19 +20,18 @@ public class Music implements Serializable {
     @Column(nullable = false)
     private String name;
     private String author;
-    private Date date;
-    private String fileName;
-    private File file;
+    //private Date date;
+    //private String fileName;
+    private byte[] file;
 
     public Music() {
     }
 
-    public Music(Integer id, String name, String author, Date date, String fileName, File file) {
-        this.id = id;
+    public Music(String name, String author /*, Date date, String fileName*/, byte[] file) {
         this.name = name;
         this.author = author;
-        this.date = date;
-        this.fileName = fileName;
+//        this.date = date;
+//        this.fileName = fileName;
         this.file = file;
     }
 
@@ -49,15 +47,15 @@ public class Music implements Serializable {
         return author;
     }
 
-    public Date getDate() {
-        return date;
-    }
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public String getFileName() {
+//        return fileName;
+//    }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public File getFile() {
+    public byte[] getFile() {
         return file;
     }
 }

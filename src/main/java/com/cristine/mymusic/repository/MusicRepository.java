@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface MusicRepository extends CrudRepository<Music, Integer> {
     public void save(MultipartFile file);
+    public List<Music> findAll();
 }
