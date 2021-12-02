@@ -1,5 +1,6 @@
 package com.cristine.mymusic.configuration;
 
+import com.cristine.mymusic.services.impl.UserDetailService;
 import com.cristine.mymusic.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,12 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserDetailService userService;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userService)
+        //PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        auth.userDetailsService(userService)
                 .passwordEncoder(passwordEncoder());
     }
     @Bean
